@@ -23,6 +23,9 @@ public class KeyboardSettings : MonoBehaviour
             "rotate_left", "Rotate Counter-clockwise"
         },
         {
+            "rotate_180", "Rotate 180"
+        },
+        {
             "softdrop", "Fast Fall"
         },
         {

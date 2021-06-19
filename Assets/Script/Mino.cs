@@ -461,10 +461,10 @@ public class Mino : MonoBehaviour
         {
             int[][][] kickTable = (id == ID_I ? SRS.I_KICK_LEFT : id == ID_O ? SRS.NOTHING : SRS.PIECE_KICK_LEFT);
             kickTests = kickTable[rotation];
-        }/* else if(direction == ROTATE_DIRECTION_180){
-            int[][][] kickTable = (id == ID_I ? SRS.I_KICK_180 : id == ID_O ? SRS.NOTHING : SRS.PIECE_KICK_180);
+        } else if(direction == ROTATE_DIRECTION_180){
+            int[][][] kickTable = (id == ID_O ? SRS.NOTHING : SRS.PIECE_KICK_180);
             kickTests = kickTable[rotation];
-        }*/ else {
+        } else {
             // what?
             throw new System.Exception();
         }
@@ -549,14 +549,21 @@ public class Mino : MonoBehaviour
         {
             if (!remote && !board.replay)
             {
-                Rotate(1);
+                Rotate(ROTATE_DIRECTION_RIGHT);
             }
         }
         if (Input.GetKeyDown(Controls.Instance.controls["rotate_left"]))
         {
             if (!remote && !board.replay)
             {
-                Rotate(-1);
+                Rotate(ROTATE_DIRECTION_LEFT);
+            }
+        }
+        if (Input.GetKeyDown(Controls.Instance.controls["rotate_180"]))
+        {
+            if (!remote && !board.replay)
+            {
+                Rotate(ROTATE_DIRECTION_180);
             }
         }
 

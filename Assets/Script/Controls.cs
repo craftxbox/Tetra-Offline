@@ -33,6 +33,7 @@ public class Controls : MonoBehaviour
         controls.Add("softdrop", (KeyCode)System.Enum.Parse(typeof(KeyCode), ConfigFile.Instance.GetString("softdrop", "DownArrow")));
         controls.Add("rotate_right", (KeyCode)System.Enum.Parse(typeof(KeyCode), ConfigFile.Instance.GetString("rotate_right", "UpArrow")));
         controls.Add("rotate_left", (KeyCode)System.Enum.Parse(typeof(KeyCode), ConfigFile.Instance.GetString("rotate_left", "Z")));
+        controls.Add("rotate_180", (KeyCode)System.Enum.Parse(typeof(KeyCode), ConfigFile.Instance.GetString("rotate_180", "X")));
         controls.Add("harddrop", (KeyCode)System.Enum.Parse(typeof(KeyCode), ConfigFile.Instance.GetString("harddrop", "Space")));
         controls.Add("hold", (KeyCode)System.Enum.Parse(typeof(KeyCode), ConfigFile.Instance.GetString("hold", "C")));
         controls.Add("retry", (KeyCode)System.Enum.Parse(typeof(KeyCode), ConfigFile.Instance.GetString("retry", "R")));

@@ -18,7 +18,8 @@ public class Autoshift : MonoBehaviour
     {
         board = GetComponent<Board>();    
         DAS = ConfigFile.Instance.GetInt("das",135);
-        ARR = ConfigFile.Instance.GetInt("das",33);
+        ARR = ConfigFile.Instance.GetInt("arr",33);
+        if(ARR == 0) ARR = 0.01f;
     }
 
     void Update()

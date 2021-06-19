@@ -34,6 +34,21 @@ public class SRS
                      new int[]{0, 0},  new int[]{-1, 0},  new int[]{-1, +1},  new int[]{0, -2},  new int[]{-1, -2}, //3 --> 2
             }
     };
+
+    public static int[][][] PIECE_KICK_180 = {
+             new int[][]{
+                     new int[]{0, 0},  new int[]{0, +1},  new int[]{+1, +1},  new int[]{-1, +1},  new int[]{+1, 0},  new int[]{-1, 0}, //0 --> 2
+            },
+             new int[][]{
+                     new int[]{0, 0},  new int[]{+1, 0},  new int[]{+1, +2},  new int[]{+1, +1},  new int[]{0, +2},  new int[]{0, +1}, //1 --> 3
+            },
+             new int[][]{
+                     new int[]{0, 0},  new int[]{0, -1},  new int[]{-1, -1},  new int[]{+1, -1},  new int[]{-1, 0},  new int[]{+1, 0}, //2 --> 0
+            },
+             new int[][]{
+                     new int[]{0, 0},  new int[]{-1, 0},  new int[]{-1, +2},  new int[]{-1, +1},  new int[]{0, 2},  new int[]{0, +1}, //3 --> 1
+            }
+    };
     
     public static int[][][] I_KICK_RIGHT = {
              new int[][]{
