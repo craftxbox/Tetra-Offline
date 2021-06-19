@@ -19,6 +19,7 @@ public class SliderSettings : MonoBehaviour
         {
             currentValue.text = slider.value.ToString();
         }
+        OnValueChange(slider.value);
     }
 
     public void OnValueChange(float value)
@@ -45,6 +46,15 @@ public class SliderSettings : MonoBehaviour
             if(value == 1000)
             {
                 currentValue.text = "Unlimited";
+            }
+            Controls.Instance.UpdateGraphics();
+        }
+        else if(property.Equals("sdf", System.StringComparison.OrdinalIgnoreCase))
+        {   
+            currentValue.text = value.ToString() + "x";
+            if(value == 41)
+            {
+                currentValue.text = "Instant";
             }
             Controls.Instance.UpdateGraphics();
         }

@@ -42,6 +42,7 @@ public class Mino : MonoBehaviour
 
     public static readonly int ROTATE_DIRECTION_LEFT = -1;
     public static readonly int ROTATE_DIRECTION_RIGHT = 1;
+    public static readonly int ROTATE_DIRECTION_180 = 2;
 
     public static readonly int FACING_UP = 0;
     public static readonly int FACING_RIGHT = 1;
@@ -229,7 +230,8 @@ public class Mino : MonoBehaviour
             else
             {
                 int groundDistance = GetGroundDistance();
-                if(groundDistance != 0){
+                if (groundDistance != 0)
+                {
                     if (board.ShouldRecord())
                     {
                         board.recorder.AddInputToFrameData(board.player, "ground " + x);
@@ -349,7 +351,7 @@ public class Mino : MonoBehaviour
         }
         else
         {
-           SoundManager.Instance.PlayAudio("lock-self");
+            SoundManager.Instance.PlayAudio("lock-self");
         }
         if (!lockedDown)
         {
@@ -433,13 +435,15 @@ public class Mino : MonoBehaviour
         if (lockedDown) return;
         lastKick = false;
         int newRotation = rotation + direction;
-        if (newRotation >= 4)
+        if (direction == ROTATE_DIRECTION_180)
         {
-            newRotation = 0;
+            if (newRotation == 4) newRotation = 0;
+            else if (newRotation == 5) newRotation = 1;
         }
-        else if (newRotation < 0)
+        else
         {
-            newRotation = 3;
+            if (newRotation >= 4) newRotation = 0;
+            else if (newRotation < 0) newRotation = 3;
         }
         if (board.ShouldRecord())
         {
@@ -449,14 +453,20 @@ public class Mino : MonoBehaviour
         int[][] kickTests;
 
         if (direction == ROTATE_DIRECTION_RIGHT)
-        { 
+        {
             int[][][] kickTable = (id == ID_I ? SRS.I_KICK_RIGHT : id == ID_O ? SRS.NOTHING : SRS.PIECE_KICK_RIGHT);
-            kickTests = kickTable[newRotation == 0 ? 3 : newRotation - 1];
+            kickTests = kickTable[rotation];
         }
-        else
+        else if (direction == ROTATE_DIRECTION_LEFT)
         {
             int[][][] kickTable = (id == ID_I ? SRS.I_KICK_LEFT : id == ID_O ? SRS.NOTHING : SRS.PIECE_KICK_LEFT);
-            kickTests = kickTable[newRotation == 3 ? 0 : newRotation + 1];
+            kickTests = kickTable[rotation];
+        }/* else if(direction == ROTATE_DIRECTION_180){
+            int[][][] kickTable = (id == ID_I ? SRS.I_KICK_180 : id == ID_O ? SRS.NOTHING : SRS.PIECE_KICK_180);
+            kickTests = kickTable[rotation];
+        }*/ else {
+            // what?
+            throw new System.Exception();
         }
 
         for (int i = 0; i < kickTests.Length; i++)
@@ -487,7 +497,7 @@ public class Mino : MonoBehaviour
                 }
 
                 CheckForTopout();
-                
+
                 break;
             }
 
@@ -551,7 +561,7 @@ public class Mino : MonoBehaviour
         }
 
 
-        float fallDistance = Time.deltaTime / (gravity / (softdropping ? board.softdropMultiplier : 1));
+        float fallDistance = Time.deltaTime / (gravity / (softdropping ? board.softdropMultiplier * ConfigFile.Instance.GetInt("sdf",1) : 1));
 
         Fall(fallDistance);
 
