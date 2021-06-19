@@ -196,7 +196,7 @@ public class Board : MonoBehaviour
             recorder.StartRecord();
         }
 
-        if(lineClearGoal == 150 && ConfigFile.Instance.GetBool("endless_marathon", false))
+        if (lineClearGoal == 150 && ConfigFile.Instance.GetBool("endless_marathon", false))
         {
             lineClearGoal = -1;
         }
@@ -281,7 +281,7 @@ public class Board : MonoBehaviour
         gameObject.AddComponent<Mino>();
         this.mino = GetComponent<Mino>();
         GetComponent<Mino>().enabled = false;
-        
+
         if (!Versus && (!remote || replay))
         {
             introAnimator.SetTrigger("Start");
@@ -377,7 +377,7 @@ public class Board : MonoBehaviour
                 combos++;
             }
             linesTotal += lineClears.Count;
-            
+
 
             if (lineClears.Count == 4 || (isTSpin && lineClears.Count > 0))
             {
@@ -453,10 +453,10 @@ public class Board : MonoBehaviour
 
         if (lineClears.Count > 0)
         {
-           // ShowAura();
-           /**
-            * Cannot show aura because it used a Unity asset which cannot be added for licensing reasons
-            * */
+            // ShowAura();
+            /**
+             * Cannot show aura because it used a Unity asset which cannot be added for licensing reasons
+             * */
         }
 
         /*Garbage handling*/
@@ -482,7 +482,7 @@ public class Board : MonoBehaviour
                 }
 
             }
-            
+
         }
 
         /*Animation*/
@@ -591,7 +591,7 @@ public class Board : MonoBehaviour
                         main.startColor = color;
                     }
                 }
-            
+
             }
 
             Destroy(instance);
@@ -688,7 +688,7 @@ public class Board : MonoBehaviour
         animation["Game-Over"].layer = 1;
         animation.Play("Game-Over");
         Invoke("ShowGameOver", 1.0f);
-        
+
     }
 
 
@@ -1421,6 +1421,17 @@ public class Board : MonoBehaviour
                 initialRotationValue = 3;
             }
 
+        }
+        else if (direction == Mino.ROTATE_DIRECTION_180)
+        {
+            if (ShouldRecord())
+            {
+                recorder.AddInputToFrameData(player, "rotate 2");
+            }
+            initialRotation = true;
+            initialRotationValue += 2;
+            if (initialRotationValue == 4) initialRotationValue = 0;
+            else if (initialRotationValue == 5) initialRotationValue = 1;
         }
     }
 
